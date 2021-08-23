@@ -1,5 +1,4 @@
 import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { StaticIsLoading } from '../../components/StaticIsLoading';
 import { useFetch } from '../../customHooks/useFetch';
 import api from '../../services/api';
@@ -21,14 +20,20 @@ async function handleDelete(taskId: number) {
   }
 }
 
+async function handleChange(taskId: number) {
+  try {
+    await api.put(`/tasks/${taskId}`);
+    window.location.reload();
+  } catch (err) {
+    console.log(err);
+    alert(err.response.data.message);
+  }
+}
+
 export function Home() {
   const { data, error, isLoading } = useFetch('/tasks');
 
   const [task, setTask] = useState('');
-  // const [tasks, setTasks] = useState(data);
-  const [done, setDone] = useState(false);
-
-  const history = useHistory();
 
   if (isLoading) {
     <StaticIsLoading />;
@@ -46,7 +51,7 @@ export function Home() {
             value={task}
             placeholder={'Task'}
             onChange={(event) => setTask(event.target.value)}
-          ></input>
+          />
           <br></br>
 
           <div className={styles.buttons}>
@@ -60,7 +65,23 @@ export function Home() {
             {data.map((task: Task) => {
               return (
                 <tr key={task.id} className={styles.items}>
-                  <td>{task.id}</td>
+                  <td className={styles.checkboxContainer}>
+                    <input
+                      className={styles.checkbox}
+                      type="checkbox"
+                      id={`done-${task.id}`}
+                      checked={task.done}
+                      onChange={() => {
+                        handleChange(task.id);
+                      }}
+                    />
+                    <span
+                      className={styles.checkmark}
+                      onClick={() => {
+                        handleChange(task.id);
+                      }}
+                    ></span>
+                  </td>
                   <td>{task.item}</td>
                   <td>
                     <button
