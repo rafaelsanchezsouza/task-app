@@ -82,6 +82,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Linkedin - [@ssraf](https://www.linkedin.com/in/ssraf/
+Linkedin - [@ssraf](https://www.linkedin.com/in/ssraf/)
 
 Project Link: [https://github.com/rafaelsanchezsouza/task-app](https://github.com/rafaelsanchezsouza/task-app)
