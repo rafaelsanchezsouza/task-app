@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useFetch } from '../../customHooks/useFetch';
 
 import styles from './styles.module.scss';
 
@@ -11,10 +12,26 @@ export function Home() {
   const [task, setTask] = useState('');
   const [done, setDone] = useState(false);
 
+  const { data, error, isLoading } = useFetch('/tasks');
+
+  if (isLoading) {
+    return (
+      <div className={styles.main}>
+        <div className={styles.container}>
+          <h1>Carregando</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <h1>Deu algum erro...</h1>;
+  }
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <form className={styles.menu}>
+        <form className={styles.createTaskForm}>
           <input
             value={task}
             placeholder={'Task'}
@@ -28,6 +45,18 @@ export function Home() {
             </button>
           </div>
         </form>
+        <table className={styles.tasksList}>
+          <tbody>
+            {data.map((task: Task) => {
+              return (
+                <tr key={task.id}>
+                  <td>{task.id}</td>
+                  <td>{task.item}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
