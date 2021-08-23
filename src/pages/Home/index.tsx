@@ -26,17 +26,6 @@ async function handleDelete(task: Task) {
   }
 }
 
-async function handleChange(task: Task) {
-  try {
-    await api.put(`/tasks/${task.id}`);
-    return !task.done;
-    // window.location.reload();
-  } catch (err) {
-    console.log(err);
-    alert(err.response.data.message);
-  }
-}
-
 export function Home() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([] as Task[]);
@@ -66,87 +55,85 @@ export function Home() {
     return <h1>Deu algum erro...</h1>;
   }
 
-  if (true) {
-    return (
-      <div className={styles.main}>
-        <div className={styles.container}>
-          <form className={styles.createTaskForm}>
-            <input
-              value={task}
-              placeholder={'Task'}
-              onChange={(event) => setTask(event.target.value)}
-            />
-            <br></br>
+  return (
+    <div className={styles.main}>
+      <div className={styles.container}>
+        <form className={styles.createTaskForm}>
+          <input
+            value={task}
+            placeholder={'Task'}
+            onChange={(event) => setTask(event.target.value)}
+          />
+          <br></br>
 
-            <div className={styles.buttons}>
-              <button
-                type="button"
-                onClick={() => {
-                  onCreateTask(task);
-                }}
-                className={styles.submitButton}
-              >
-                Create Task
-              </button>
-            </div>
-          </form>
-          <table className={styles.tasksList}>
-            <tbody>
-              {tasks.map((task: Task) => {
-                return (
-                  <tr key={task.id} className={styles.items}>
-                    <td className={styles.checkboxContainer}>
-                      <input
-                        className={styles.checkbox}
-                        type="checkbox"
-                        id={`done-${task.id}`}
-                        checked={task.done}
-                        onChange={() => {
-                          setTasks(
-                            tasks.map((taskState: Task) => {
-                              if (task.id === taskState.id) {
-                                taskState.done = !taskState.done;
-                              }
-                              return taskState;
-                            })
-                          );
-                          api.put(`/tasks/${task.id}`);
-                        }}
-                      />
-                      <span
-                        className={styles.checkmark}
-                        onClick={() => {
-                          setTasks(
-                            tasks.map((taskState: Task) => {
-                              if (task.id === taskState.id) {
-                                taskState.done = !taskState.done;
-                              }
-                              return taskState;
-                            })
-                          );
-                          api.put(`/tasks/${task.id}`);
-                        }}
-                      ></span>
-                    </td>
-                    <td>{task.item}</td>
-                    <td>
-                      <button
-                        className={styles.trashButton}
-                        type="button"
-                        onClick={() => handleDelete(task)}
-                      >
-                        <img src="/trash.svg" alt="Excluir Empresa" />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+          <div className={styles.buttons}>
+            <button
+              type="button"
+              onClick={() => {
+                onCreateTask(task);
+              }}
+              className={styles.submitButton}
+            >
+              Create Task
+            </button>
+          </div>
+        </form>
+        <table className={styles.tasksList}>
+          <tbody>
+            {tasks.map((task: Task) => {
+              return (
+                <tr key={task.id} className={styles.items}>
+                  <td className={styles.checkboxContainer}>
+                    <input
+                      className={styles.checkbox}
+                      type="checkbox"
+                      id={`done-${task.id}`}
+                      checked={task.done}
+                      onChange={() => {
+                        setTasks(
+                          tasks.map((taskState: Task) => {
+                            if (task.id === taskState.id) {
+                              taskState.done = !taskState.done;
+                            }
+                            return taskState;
+                          })
+                        );
+                        api.put(`/tasks/${task.id}`);
+                      }}
+                    />
+                    <span
+                      className={styles.checkmark}
+                      onClick={() => {
+                        setTasks(
+                          tasks.map((taskState: Task) => {
+                            if (task.id === taskState.id) {
+                              taskState.done = !taskState.done;
+                            }
+                            return taskState;
+                          })
+                        );
+                        api.put(`/tasks/${task.id}`);
+                      }}
+                    ></span>
+                  </td>
+                  <td>{task.item}</td>
+                  <td>
+                    <button
+                      className={styles.trashButton}
+                      type="button"
+                      onClick={() => {
+                        handleDelete(task);
+                      }}
+                    >
+                      <img src="/trash.svg" alt="Excluir Empresa" />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-    );
-  } else {
-    return <StaticIsLoading />;
-  }
+    </div>
+  );
 }
