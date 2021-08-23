@@ -16,10 +16,10 @@ async function onCreateTask(task: string) {
   }
 }
 
-async function handleDelete(task: Task) {
+async function handleDelete(task: Task, tasks: Task[]) {
   try {
     await api.delete(`/tasks/${task.id}`);
-    window.location.reload();
+    // window.location.reload();
   } catch (err) {
     console.log(err);
     alert(err.response.data.message);
@@ -122,7 +122,13 @@ export function Home() {
                       className={styles.trashButton}
                       type="button"
                       onClick={() => {
-                        handleDelete(task);
+                        handleDelete(task, tasks);
+                        setTasks((prevTasks) =>
+                          // Filter out the item with the matching index
+                          prevTasks.filter(
+                            (prevTask) => prevTask.id !== task.id
+                          )
+                        );
                       }}
                     >
                       <img src="/trash.svg" alt="Excluir Empresa" />
