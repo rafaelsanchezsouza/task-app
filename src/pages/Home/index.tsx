@@ -1,13 +1,20 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { StaticIsLoading } from '../../components/StaticIsLoading';
 import { useFetch } from '../../customHooks/useFetch';
 import api from '../../services/api';
 
 import styles from './styles.module.scss';
 
-function onCreateTask(event: FormEvent) {
-  event?.preventDefault();
-  console.log('Make API Call');
+async function onCreateTask(task: string) {
+  try {
+    await api.post(`/tasks`, {
+      item: task,
+    });
+    window.location.reload();
+  } catch (err) {
+    console.log(err);
+    alert(err.response.data.message);
+  }
 }
 
 async function handleDelete(taskId: number) {
@@ -55,7 +62,13 @@ export function Home() {
           <br></br>
 
           <div className={styles.buttons}>
-            <button onClick={onCreateTask} className={styles.submitButton}>
+            <button
+              type="button"
+              onClick={() => {
+                onCreateTask(task);
+              }}
+              className={styles.submitButton}
+            >
               Create Task
             </button>
           </div>
