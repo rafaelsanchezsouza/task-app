@@ -36,7 +36,7 @@ export function Home() {
     api
       .get('/tasks')
       .then(async (response) => {
-        const json = await response.data.items;
+        const json = await response.data;
         setTasks(json);
       })
       .catch((err) => {
