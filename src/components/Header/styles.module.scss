@@ -1,19 +1,25 @@
 .headerContainer {
   background: var(--dark-blue);
-  height: 6.5rem;
+  position: relative;
+  height: 6rem;
 
   display: flex;
   align-items: center;
 
-  padding: 2rem 2rem;
+  padding: 2rem;
+
+  border-radius: 1.5rem 1.5rem 0 0;
+  // box-shadow: 2px 2px 5px var(--dark-gray);
 
   // border-bottom: 1px solid var(--green);
 
   p {
     margin-left: 2rem;
+    margin-right: 2rem;
     font-size: 1.3rem;
+    width: 100%;
+    text-align: center;
     padding: 0.25rem 0 0.25rem 2rem;
-    border-left: 1px solid var(--white);
     color: var(--white);
   }
 
@@ -24,7 +30,7 @@
   }
 
   img {
-    height: 4rem;
+    height: 3rem;
     filter: invert(1);
   }
 }

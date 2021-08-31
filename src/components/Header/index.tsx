@@ -11,7 +11,7 @@ export function Header() {
     <header className={styles.headerContainer}>
       <img src="/task.svg" alt="Tasks"></img>
 
-      <p>Task Manager</p>
+      <p>Task Box</p>
 
       <span>{currentDate}</span>
     </header>
