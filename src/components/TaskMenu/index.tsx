@@ -48,7 +48,7 @@ export function TaskMenu() {
   }, []);
 
   if (isLoading) {
-    <StaticIsLoading />;
+    return <StaticIsLoading />;
   }
 
   if (error) {

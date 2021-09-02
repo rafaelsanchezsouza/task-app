@@ -5,11 +5,13 @@ export function StaticIsLoading() {
     <div className={styles.main}>
       <div className={styles.container}>
         <form className={styles.createTaskForm}>
-          <input value={''} placeholder={'Task'}></input>
+          <input defaultValue={''} placeholder={'Task'}></input>
           <br></br>
 
           <div className={styles.buttons}>
-            <button className={styles.submitButton}>Create Task</button>
+            <button type="button" className={styles.submitButton}>
+              Create Task
+            </button>
           </div>
         </form>
         <div className={styles.loading}>
