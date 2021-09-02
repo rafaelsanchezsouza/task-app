@@ -6,6 +6,36 @@
   // box-shadow: 2px 2px 5px var(--dark-gray);
 }
 
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  border: 1px solid;
+  border-color: var(--dark-gray);
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 300px;
+  padding: 1.5rem;
+  padding-top: 1rem;
+
+  margin-top: 1.5rem;
+  background: var(--light-gray);
+
+  h1 {
+    font-size: 1.3rem;
+    color: var(--dark-gray);
+    animation: blinker 2.5s linear infinite;
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+  }
+}
+
 .tasksList {
   display: flex;
   flex-direction: column;

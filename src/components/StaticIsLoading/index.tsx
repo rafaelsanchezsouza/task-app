@@ -1,4 +1,4 @@
-import styles from '../../pages/Home/styles.module.scss';
+import styles from '../../components/TaskMenu/styles.module.scss';
 
 export function StaticIsLoading() {
   return (
@@ -12,8 +12,8 @@ export function StaticIsLoading() {
             <button className={styles.submitButton}>Create Task</button>
           </div>
         </form>
-        <div className={styles.tasksList}>
-          <h1>Carregando</h1>
+        <div className={styles.loading}>
+          <h1>Loading...</h1>
         </div>
       </div>
     </div>
